@@ -50,14 +50,32 @@ namespace MysteryHaloTheater
             // Get the index for the segment start
             for (int i = TagStartIndex; ; i++)
             {
-                if (i > RawData.Length - 2)
+                if (i > RawData.Length - 2) { break; }
+
+                bool indexFound = false;
+                if (
+                       (RawData[i] == 0x2B && RawData[i+1] == 0x80 && RawData[i+2] == 0x00)
+                    || (RawData[i] == 0x02 && RawData[i + 1] == 0xB8 && RawData[i + 2] == 0x00)
+                )
                 {
-                    break;
+                    int x = i + 2;
+                    while (true)
+                    {
+                        if (x > RawData.Length - 2) { break; }
+
+                        if (RawData[x] > 0)
+                        {
+                            SegmentStartIndex = x - 3;
+                            indexFound = true;
+                            break;
+                        }
+                        x++;
+                    }
+                    
                 }
 
-                if(RawData[i] == 0x2B && RawData[i+1] == 0x80 && RawData[i+2] == 00)
+                if (indexFound)
                 {
-                    SegmentStartIndex = i + 3;
                     break;
                 }
             }
@@ -71,20 +89,31 @@ namespace MysteryHaloTheater
             int CurrentSegmentIndex = SegmentStartIndex;
             while (true)
             {
-                byte SegmentSize = RawData[CurrentSegmentIndex + 3];
                 int SegmentDataIndex = CurrentSegmentIndex + 4;
 
-                int EOF = BitConverter.ToInt32(RawData, SegmentDataIndex);
-                
-
                 Segment seg = new Segment();
-                seg.SegmentSize = SegmentSize;
+
+                int EOF = BitConverter.ToInt32(RawData, SegmentDataIndex);
 
                 seg.EOFFlag = "";
-                if(RawData[SegmentDataIndex] != 0)
+                if (RawData[SegmentDataIndex] != 0)
                 {
                     seg.EOFFlag = System.Text.Encoding.ASCII.GetString(RawData, SegmentDataIndex, 3);
                 }
+
+                short SegmentSize;
+                if (seg.EOFFlag == "eof") // "eof "
+                {
+                    SegmentSize = RawData[CurrentSegmentIndex + 3];
+                } else {
+                    SegmentSize = BitConverter.ToInt16(RawData, CurrentSegmentIndex + 3);
+                }
+                if (SegmentSize > 1000)
+                {
+                    break;
+                }
+
+                seg.SegmentSize = SegmentSize;
 
                 byte[] tickData = new byte[4];
                 Array.Copy(RawData, SegmentDataIndex + 3, tickData, 0, 4);
@@ -92,9 +121,9 @@ namespace MysteryHaloTheater
                 seg.Tick = BitConverter.ToInt32(tickData, 0);
 
                 seg.Data = new List<byte>();
-                for (int i = 0; i < SegmentSize; i++)
+                for (int i = 0; i < SegmentSize + 4; i++)
                 {
-                    seg.Data.Add(RawData[SegmentDataIndex + i]);
+                    seg.Data.Add(RawData[CurrentSegmentIndex + i]);
                 }
 
                 TheaterSegments.Add(seg);
@@ -113,7 +142,7 @@ namespace MysteryHaloTheater
 
     struct Segment
     {
-        public byte SegmentSize { get; set; }
+        public short SegmentSize { get; set; }
         public List<byte> Data { get; set; }
         public string EOFFlag { get; set; }
         public int Tick { get; set; }

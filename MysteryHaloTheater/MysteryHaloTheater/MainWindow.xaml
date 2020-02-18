@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MysteryHaloTheater"
         mc:Ignorable="d"
-        Title="Mystery Halo Theater 3000 - github.com/Scaless/MysteryHaloTheater" Height="720" Width="1280">
+        Title="Mystery Halo Theater 3000 - github.com/Scaless/MysteryHaloTheater" Height="720" Width="1280" FontFamily="Consolas" FontWeight="Bold" FontSize="14">
     <Grid>
 
-        <Button x:Name="btn_LoadTheaterFile" Content="Load Reach Theater File" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="26" Width="158" Click="btn_LoadTheaterFile_Click"/>
-        <ListView x:Name="lv_TheaterData" Margin="0,123,0,0" Grid.ColumnSpan="3">
+        <Button x:Name="btn_LoadTheaterFile" Content="Load Reach Theater File" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="26" Width="219" Click="btn_LoadTheaterFile_Click"/>
+        <ListView x:Name="lv_TheaterData" Margin="0,123,0,0" Grid.ColumnSpan="3" FontFamily="Consolas">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="40" Header="Size" DisplayMemberBinding="{Binding Size}"/>
@@ -19,10 +19,10 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Label x:Name="lbl_AuthorA" Content="..." HorizontalAlignment="Left" Margin="173,0,0,0" VerticalAlignment="Top" Height="26" Width="503"/>
-        <Label x:Name="lbl_MissionName" Content="..." HorizontalAlignment="Left" Margin="173,13,0,0" VerticalAlignment="Top" Height="26" Width="503"/>
-        <Label x:Name="lbl_MissionDescription" Content="..." HorizontalAlignment="Left" Margin="173,26,0,0" VerticalAlignment="Top" Height="26" Width="503"/>
-        <ListView x:Name="lv_Players" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,1,0,0" Height="117" Width="228" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+        <Label x:Name="lbl_AuthorA" Content="..." HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="812" FontFamily="Consolas" Margin="10,44,0,0"/>
+        <Label x:Name="lbl_MissionName" Content="..." HorizontalAlignment="Left" Margin="10,57,0,0" VerticalAlignment="Top" Height="26" Width="812" FontFamily="Consolas"/>
+        <Label x:Name="lbl_MissionDescription" Content="..." HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top" Height="26" Width="812" FontFamily="Consolas"/>
+        <ListView x:Name="lv_Players" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,1,0,0" Height="117" Width="228" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" FontFamily="Consolas">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="160"/>
@@ -30,6 +30,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <CheckBox x:Name="chk_HideSizeTick" Content="Hide Size/Tick in Data" HorizontalAlignment="Left" Margin="10,103,0,0" VerticalAlignment="Top" IsChecked="True" Checked="chk_HideSizeTick_Checked" Unchecked="chk_HideSizeTick_Unchecked"/>
 
     </Grid>
 </Window>

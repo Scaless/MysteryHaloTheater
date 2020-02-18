@@ -34,7 +34,7 @@ namespace MysteryHaloTheater
 
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"Low\MCC\Temporary\UserContent\HaloReach\Movie";
-            dialog.Filter = "Reach Theater Files (*.mov)|*.mov";
+            dialog.Filter = "Reach Theater Files (*.mov;*.film)|*.mov;*.film|All files (*.*)|*.*";
             dialog.RestoreDirectory = true;
 
             bool? result = dialog.ShowDialog();
@@ -70,10 +70,18 @@ namespace MysteryHaloTheater
 
             foreach (var segment in WorkingFile.TheaterSegments)
             {
-                StringBuilder hexBytes = new StringBuilder(segment.SegmentSize * 2);
-                for (int i = 7; i < segment.SegmentSize; i++)
+                int DataStartIndex = (chk_HideSizeTick.IsChecked ?? false) ? 11 : 0;
+                StringBuilder hexBytes = new StringBuilder();
+
+                int segmentHexCounter = 0;
+                for (int i = DataStartIndex; i < segment.Data.Count; i++)
                 {
-                    hexBytes.AppendFormat("{0:X}", segment.Data[i]);
+                    if (segmentHexCounter > 0 && segmentHexCounter % 4 == 0)
+                    {
+                        hexBytes.Append(" ");
+                    }
+                    hexBytes.AppendFormat("{0:X02}", segment.Data[i]);
+                    segmentHexCounter++;
                 }
 
                 lv_TheaterData.Items.Add(new {
@@ -89,6 +97,16 @@ namespace MysteryHaloTheater
                 lv_Players.Items.Add(player);
             }
 
+        }
+
+        private void chk_HideSizeTick_Checked(object sender, RoutedEventArgs e)
+        {
+            ReloadFileDisplay();
+        }
+
+        private void chk_HideSizeTick_Unchecked(object sender, RoutedEventArgs e)
+        {
+            ReloadFileDisplay();
         }
     }
 }
