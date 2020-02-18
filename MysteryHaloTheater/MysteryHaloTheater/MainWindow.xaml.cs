@@ -57,6 +57,7 @@ namespace MysteryHaloTheater
             lbl_AuthorA.Content = WorkingFile?.CreatorNameA ?? "";
             lbl_MissionName.Content = WorkingFile?.MissionName ?? "";
             lbl_MissionDescription.Content = WorkingFile?.MissionFullDescription ?? "";
+            lbl_MissionTime.Content = "";
         }
 
         private void ReloadFileDisplay()
@@ -67,6 +68,14 @@ namespace MysteryHaloTheater
             {
                 return;
             }
+
+            float missionTimeActual = (float)WorkingFile.TickCount / 60.0f;
+            TimeSpan missionTimeSpan = TimeSpan.FromSeconds(missionTimeActual);
+
+            string missionTimeStr = $"Theater Time: {missionTimeSpan.ToString(@"hh\:mm\:ss")}"+
+                $" (Actual: {missionTimeSpan.ToString(@"hh\:mm\:ss\.fff")} / Ticks: {WorkingFile.TickCount})";
+
+            lbl_MissionTime.Content = missionTimeStr;
 
             foreach (var segment in WorkingFile.TheaterSegments)
             {
@@ -84,10 +93,13 @@ namespace MysteryHaloTheater
                     segmentHexCounter++;
                 }
 
+                TimeSpan timeActualSpan = TimeSpan.FromSeconds((float)segment.Tick / 60.0f);
+
                 lv_TheaterData.Items.Add(new {
                     Size = segment.SegmentSize,
                     EOF = segment.EOFFlag,
                     Tick = segment.Tick,
+                    Time = timeActualSpan.ToString(@"hh\:mm\:ss\.fff"),
                     Data = hexBytes.ToString()
                 });
             }

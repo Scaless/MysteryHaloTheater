@@ -7,21 +7,22 @@
         mc:Ignorable="d"
         Title="Mystery Halo Theater 3000 - github.com/Scaless/MysteryHaloTheater" Height="720" Width="1280" FontFamily="Consolas" FontWeight="Bold" FontSize="14">
     <Grid>
-
         <Button x:Name="btn_LoadTheaterFile" Content="Load Reach Theater File" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="26" Width="219" Click="btn_LoadTheaterFile_Click"/>
         <ListView x:Name="lv_TheaterData" Margin="0,123,0,0" Grid.ColumnSpan="3" FontFamily="Consolas">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="40" Header="Size" DisplayMemberBinding="{Binding Size}"/>
                     <GridViewColumn Width="40" Header="EOF" DisplayMemberBinding="{Binding EOF}"/>
+                    <GridViewColumn Width="110" Header="Time" DisplayMemberBinding="{Binding Time}"/>
                     <GridViewColumn Width="80" Header="Tick" DisplayMemberBinding="{Binding Tick}"/>
                     <GridViewColumn Width="1000" Header="Data" DisplayMemberBinding="{Binding Data}"/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Label x:Name="lbl_AuthorA" Content="..." HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="812" FontFamily="Consolas" Margin="10,44,0,0"/>
-        <Label x:Name="lbl_MissionName" Content="..." HorizontalAlignment="Left" Margin="10,57,0,0" VerticalAlignment="Top" Height="26" Width="812" FontFamily="Consolas"/>
-        <Label x:Name="lbl_MissionDescription" Content="..." HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top" Height="26" Width="812" FontFamily="Consolas"/>
+        <Label x:Name="lbl_AuthorA" Content="..." HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="630" FontFamily="Consolas" Margin="234,8,0,0"/>
+        <Label x:Name="lbl_MissionName" Content="..." HorizontalAlignment="Left" Margin="234,21,0,0" VerticalAlignment="Top" Height="26" Width="630" FontFamily="Consolas"/>
+        <Label x:Name="lbl_MissionDescription" Content="..." HorizontalAlignment="Left" Margin="234,34,0,0" VerticalAlignment="Top" Height="26" Width="630" FontFamily="Consolas"/>
+        <Label x:Name="lbl_MissionTime" Content="..." HorizontalAlignment="Left" Margin="234,46,0,0" VerticalAlignment="Top" Height="26" Width="630" FontFamily="Consolas"/>
         <ListView x:Name="lv_Players" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,1,0,0" Height="117" Width="228" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" FontFamily="Consolas">
             <ListView.View>
                 <GridView>

@@ -12,6 +12,7 @@ namespace MysteryHaloTheater
         public string CreatorNameB; // 20 Bytes, ASCII
         public string MissionName; // 256 Bytes, UTF16
         public string MissionFullDescription; // 256 Bytes, UTF16
+        public int TickCount = 0;
 
         public Player[] Players = new Player[4]; 
 
@@ -119,6 +120,11 @@ namespace MysteryHaloTheater
                 Array.Copy(RawData, SegmentDataIndex + 3, tickData, 0, 4);
                 Array.Reverse(tickData);
                 seg.Tick = BitConverter.ToInt32(tickData, 0);
+
+                if(seg.EOFFlag != "eof" && seg.Tick > TickCount)
+                {
+                    TickCount = seg.Tick;
+                }
 
                 seg.Data = new List<byte>();
                 for (int i = 0; i < SegmentSize + 4; i++)
