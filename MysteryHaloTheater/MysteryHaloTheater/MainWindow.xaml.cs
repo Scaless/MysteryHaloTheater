@@ -51,6 +51,9 @@ namespace MysteryHaloTheater
 
         private void ClearDisplay()
         {
+            if (!IsInitialized)
+                return;
+
             lv_TheaterData.Items.Clear();
             lv_Players.Items.Clear();
 

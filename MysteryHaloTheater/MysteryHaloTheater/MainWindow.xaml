@@ -5,25 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MysteryHaloTheater"
         mc:Ignorable="d"
-        Title="Mystery Halo Theater 3000 - github.com/Scaless/MysteryHaloTheater" Height="720" Width="1280" FontFamily="Consolas" FontWeight="Bold" FontSize="14">
+        Title="Mystery Halo Theater 3000 - github.com/Scaless/MysteryHaloTheater" Height="720" Width="1280" FontFamily="Consolas" FontWeight="Bold" FontSize="12">
     <Grid>
         <Button x:Name="btn_LoadTheaterFile" Content="Load Reach Theater File" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="26" Width="219" Click="btn_LoadTheaterFile_Click"/>
-        <ListView x:Name="lv_TheaterData" Margin="0,123,0,0" Grid.ColumnSpan="3" FontFamily="Consolas">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Width="40" Header="Size" DisplayMemberBinding="{Binding Size}"/>
-                    <GridViewColumn Width="40" Header="EOF" DisplayMemberBinding="{Binding EOF}"/>
-                    <GridViewColumn Width="110" Header="Time" DisplayMemberBinding="{Binding Time}"/>
-                    <GridViewColumn Width="80" Header="Tick" DisplayMemberBinding="{Binding Tick}"/>
-                    <GridViewColumn Width="1000" Header="Data" DisplayMemberBinding="{Binding Data}"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <Label x:Name="lbl_AuthorA" Content="..." HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="630" FontFamily="Consolas" Margin="234,8,0,0"/>
-        <Label x:Name="lbl_MissionName" Content="..." HorizontalAlignment="Left" Margin="234,21,0,0" VerticalAlignment="Top" Height="26" Width="630" FontFamily="Consolas"/>
-        <Label x:Name="lbl_MissionDescription" Content="..." HorizontalAlignment="Left" Margin="234,34,0,0" VerticalAlignment="Top" Height="26" Width="630" FontFamily="Consolas"/>
-        <Label x:Name="lbl_MissionTime" Content="..." HorizontalAlignment="Left" Margin="234,46,0,0" VerticalAlignment="Top" Height="26" Width="630" FontFamily="Consolas"/>
-        <ListView x:Name="lv_Players" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,1,0,0" Height="117" Width="228" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" FontFamily="Consolas">
+        <ListView x:Name="lv_Players" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,1,0,0" Height="117" Width="228" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="160"/>
@@ -31,7 +16,35 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <CheckBox x:Name="chk_HideSizeTick" Content="Hide Size/Tick in Data" HorizontalAlignment="Left" Margin="10,103,0,0" VerticalAlignment="Top" IsChecked="True" Checked="chk_HideSizeTick_Checked" Unchecked="chk_HideSizeTick_Unchecked"/>
+        <Grid Margin="0,123,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="5"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <GridSplitter Grid.Row="1" Height="5" HorizontalAlignment="Stretch" />
+            <ListView x:Name="lv_TheaterData">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Width="40" Header="Size" DisplayMemberBinding="{Binding Size}"/>
+                        <GridViewColumn Width="40" Header="EOF" DisplayMemberBinding="{Binding EOF}"/>
+                        <GridViewColumn Width="110" Header="Time" DisplayMemberBinding="{Binding Time}"/>
+                        <GridViewColumn Width="80" Header="Tick" DisplayMemberBinding="{Binding Tick}"/>
+                        <GridViewColumn Width="1000" Header="Data" DisplayMemberBinding="{Binding Data}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+        </Grid>
+        <StackPanel Margin="234,10,233,586">
+            <Label x:Name="lbl_AuthorA" Content="..." Padding="1,1,1,1"/>
+            <Label x:Name="lbl_MissionName" Content="..." Padding="1,1,1,1"/>
+            <Label x:Name="lbl_MissionDescription" Content="..." Padding="1,1,1,1"/>
+            <Label x:Name="lbl_MissionTime" Content="..." Padding="1,1,1,1"/>
+        </StackPanel>
+        <StackPanel Margin="10,46,1051,586">
+            <CheckBox x:Name="chk_HideSizeTick" Content="Hide Size/Tick in Data" IsChecked="True" Checked="chk_HideSizeTick_Checked" Unchecked="chk_HideSizeTick_Unchecked"/>
+        </StackPanel>
 
     </Grid>
 </Window>
