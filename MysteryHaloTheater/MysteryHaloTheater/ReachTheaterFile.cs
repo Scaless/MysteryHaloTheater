@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -131,6 +132,7 @@ namespace MysteryHaloTheater
                 {
                     seg.Data.Add(RawData[CurrentSegmentIndex + i]);
                 }
+                seg.DataBits = new BitArray(seg.Data.ToArray());
 
                 TheaterSegments.Add(seg);
 
@@ -150,6 +152,7 @@ namespace MysteryHaloTheater
     {
         public short SegmentSize { get; set; }
         public List<byte> Data { get; set; }
+        public BitArray DataBits { get; set; }
         public string EOFFlag { get; set; }
         public int Tick { get; set; }
     }
